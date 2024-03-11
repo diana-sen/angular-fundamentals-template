@@ -5,6 +5,6 @@ import { Validator } from "@angular/forms";
     selector: '[emailValidator]',
     providers: [/*Add your code here*/]
 })
-export class EmailValidatorDirective implements Validator {
+export class EmailValidatorDirective /*implements Validator*/ {
     // Add your code here
 }

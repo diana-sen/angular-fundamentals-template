@@ -1,13 +1,21 @@
-<app-header></app-header>
+<app-header>
+  <div>Username</div>
+  <app-button [buttonText]="logoutText"></app-button>
+</app-header>
 <div class="app-root">
   <!-- Search component -->
   <!--<app-search></app-search>-->
 
   <!-- Info component -->
-  <!--<app-info></app-info>-->
+  <app-info></app-info>
 
-  <!-- Course Card component -->
-  <!--<app-course-card></app-course-card>-->
+  <!-- Course Card component 
+  <app-course-card [editable]="true">
+      <app-button [iconName]="faTrashCan"></app-button>
+      <app-button [iconName]="faPencil"></app-button>
+  </app-course-card> -->
+   <!-- Course List component -->
+  <app-courses-list></app-courses-list>
 
   <!-- Login Form component -->
   <!--<app-login-form></app-login-form>-->

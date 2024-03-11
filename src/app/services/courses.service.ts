@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { mockedCoursesList, mockedAuthorsList } from '@app/shared/mock/mock';
 
 @Injectable({
     providedIn: 'root'
@@ -6,6 +7,7 @@ import { Injectable } from '@angular/core';
 export class CoursesService {
     getAll() {
         // Add your code here
+        return mockedCoursesList;
     }
 
     createCourse(course: any) { // replace 'any' with the required interface
@@ -18,6 +20,8 @@ export class CoursesService {
 
     getCourse(id: string) {
         // Add your code here
+        const course = mockedCoursesList.find((course) => course.id === id);
+        return course;
     }
 
     deleteCourse(id: string) {
@@ -30,6 +34,7 @@ export class CoursesService {
 
     getAllAuthors() {
         // Add your code here
+        return mockedAuthorsList;
     }
 
     createAuthor(name: string) {
@@ -38,5 +43,7 @@ export class CoursesService {
 
     getAuthorById(id: string) {
         // Add your code here
+        let authors = mockedAuthorsList.filter((author)=> id.includes(author.id));
+        return authors
     }
 }
