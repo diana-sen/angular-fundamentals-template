@@ -1,4 +1,7 @@
-<app-course-card [editable]="true">
-    <app-button [iconName]="faTrashCan"></app-button>
-    <app-button [iconName]="faPencil"></app-button>
-</app-course-card>
+
+    <div *ngFor="let course of courses;">
+        <app-course-card  [course]="course" [editable]="editable" (clickOnShow)="handleShowCourse($event)">
+            <app-button (click)="handleClickOnEdit()" [iconName]="faTrashCan"></app-button>
+            <app-button (click)="handleClickOnDelete()" [iconName]="faPencil"></app-button>
+        </app-course-card>
+    </div>

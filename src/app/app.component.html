@@ -9,13 +9,11 @@
   <!-- Info component -->
   <app-info></app-info>
 
-  <!-- Course Card component 
-  <app-course-card [editable]="true">
-      <app-button [iconName]="faTrashCan"></app-button>
-      <app-button [iconName]="faPencil"></app-button>
-  </app-course-card> -->
+  <!-- Course Card component -->
    <!-- Course List component -->
-  <app-courses-list></app-courses-list>
+  <app-courses-list [courses]="courses" [editable]="true" (showCourse)="showCourse($event)" (editCourse)="editCourse($event)" (deleteCourse)="deleteCourse($event)"></app-courses-list>
+
+  <app-course-info *ngIf="selectedCourse" [courseId]="selectedCourse"></app-course-info>
 
   <!-- Login Form component -->
   <!--<app-login-form></app-login-form>-->

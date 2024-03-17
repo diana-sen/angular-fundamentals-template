@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CourseData } from '@app/app-interface';
 import { ButtonConstants } from '@app/app.constants';
+import { CoursesService } from '@app/services/courses.service';
 //import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -8,37 +10,33 @@ import { ButtonConstants } from '@app/app.constants';
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.scss'],
 })
-export class CourseCardComponent {
+export class CourseCardComponent implements OnInit {
   @Input() editable = false;
   @Output() clickOnShow = new EventEmitter<string>();
-  @Input() course: any;
+  @Input() course: CourseData = {
+    id: '', 
+    title: '', 
+    description: '', 
+    creationDate: new Date(), 
+    duration: 0, 
+    authors: [] 
+  };
 
-
-  /*public title: string;
-  public description : string;
-  public creationDate: Date;
-  public duration: number;
-  public authors: string[];
-  */
 
   public showText = ButtonConstants.BUTTON_SHOW_COURSE;
+  public authorName: string[] = [];
 
-  //faTrashCan = faTrashCan;
-  //faPencil = faPencil;
+  constructor(private coursesService: CoursesService){
+  }
 
- 
-  constructor(){
-   /* this.title = this.course.title;
-    this.description = course.description;
-    this.creationDate = course.creationDate;
-    this.duration = 0;
-    this.authors = [];
-    */
+  ngOnInit(): void {
+    console.log("course info: "+ this.course);
+    this.authorName = this.course.authors.map((authorId) => this.coursesService.getAuthorById(authorId)?? '' );
   }
 
 
   public handleClickOnShow(event: any): void{
-    return this.clickOnShow.emit(event);
+    return this.clickOnShow.emit(this.course.id);
 
   }
 

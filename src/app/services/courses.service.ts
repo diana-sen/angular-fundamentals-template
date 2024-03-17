@@ -43,7 +43,7 @@ export class CoursesService {
 
     getAuthorById(id: string) {
         // Add your code here
-        let authors = mockedAuthorsList.filter((author)=> id.includes(author.id));
-        return authors
+        const author = this.getAllAuthors().find((author) => author.id === id);
+        return author?.name;
     }
 }
