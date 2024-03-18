@@ -15,6 +15,4 @@ export class ButtonComponent {
   constructor(library: FaIconLibrary) {
     library.addIconPacks(fas);
   }
-
-
 }

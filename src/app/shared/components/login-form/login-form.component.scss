@@ -6,4 +6,23 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  .invalid {
+    border: 1px solid blue;
+  }
+  
+  .valid {
+    border: 1px solid green;
+  }
+   
+
 }
+
+// .ng-valid[required], .ng-valid.required  {
+//   border: 1px solid black;
+// }
+
+//.ng-invalid:not(form), .ng-untouched:not(form)  {
+  //border: 1px solid red;
+//}
+
