@@ -29,7 +29,7 @@
         <div class="course__flex">
           <!--Use the name `author` for the form control.-->
           <input type="text" id="author" placeholder="Input Author Name" formControlName="author"/>
-          <app-button id="createAuthor"></app-button>
+          <app-button id="createAuthor" [buttonText]="createAuthorText"></app-button>
         </div>
         <span id="authorErrorMessage">New author should contain only latin letters and numbers.</span>
         <div class="course__authors">
@@ -50,7 +50,8 @@
         <span id="durationErrorMessage" class="text-danger" *ngIf="!courseForm.controls['duration'].valid && courseForm.controls['duration']?.touched">Duration is required.</span>
       </div>
       <div class="form__action">
-        <app-button></app-button>
+        <app-button [buttonText]="createCourseText"></app-button>
+        <app-button [buttonText]="cancelText"></app-button>
       </div>
     </div>
   </div>
