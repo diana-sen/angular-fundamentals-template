@@ -7,3 +7,8 @@ export enum ButtonConstants {
     BUTTON_CREATE_AUTHOR = 'CREATE AUTHOR',
     BUTTON_CANCEL = 'CANCEL',
 }
+
+export enum IconNames {
+    ADD = 'add',
+    DELETE = 'delete',
+}
