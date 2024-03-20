@@ -25,14 +25,14 @@ export class CourseFormComponent {
     this.courseForm = this.fb.group({
       title: ['', Validators.compose([Validators.required, Validators.minLength(2)])],
       description: ['', Validators.compose([Validators.required, Validators.minLength(2)])],
-      author:['',Validators.minLength(2)],
+      author:['',Validators.compose([Validators.pattern(/^[A-Za-z0-9 ]+$/i), Validators.minLength(2)])],
       duration: ['',  Validators.compose([Validators.required, Validators.min(0)])],
       authors: this.fb.array([{
         name: [''],
       }]),
      
       newAuthor: this.fb.group({
-        name:  Validators.compose([Validators.pattern(/^[A-Za-z0-9 ]+$/i), Validators.minLength(2)])
+        author:['',Validators.compose([Validators.pattern(/^[A-Za-z0-9 ]+$/i), Validators.minLength(2)])],
       }),
     });
   }
