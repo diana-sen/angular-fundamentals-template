@@ -3,7 +3,7 @@
   (ngSubmit)="onSubmit(searchForm.value)"
   >
 
-    <input type="text" id="search" placeholder="Input text" name="searchInput" [(ngModel)]="placeholder">
+    <input type="text" id="search" [placeholder]="placeholder" name="searchInput" [(ngModel)]="searchText">
     <app-button type="submit" (click)="emitSubmitEvent($event)" buttonText="Search"></app-button>
   </form>
 </div>

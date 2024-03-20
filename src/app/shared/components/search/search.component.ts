@@ -12,7 +12,7 @@ export class SearchComponent {
   @Input() placeholder = '';
   @Output() search = new EventEmitter<string>();
   @ViewChild("searchForm") public searchForm!: NgForm;
-  
+  searchText = '';
 
   public onSubmit(searchItem: any): void{
     console.log("Search item");
@@ -21,7 +21,7 @@ export class SearchComponent {
   }
 
   public emitSubmitEvent(event: any): void{
-    this.searchForm.ngSubmit.emit(this.placeholder);
+    this.searchForm.ngSubmit.emit(this.searchText);
   }
 
 }
