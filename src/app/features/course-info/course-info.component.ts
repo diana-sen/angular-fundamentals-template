@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CourseData } from "@app/app-interface";
 import { ButtonConstants } from '@app/app.constants';
 import { CoursesService } from '@app/services/courses.service';
@@ -22,7 +23,7 @@ export class CourseInfoComponent implements OnInit {
   @Input() courseId = '';
   backButton: string = '';
 
-  constructor(private coursesService: CoursesService){
+  constructor(private coursesService: CoursesService, private router: Router){
   }
 
   ngOnInit(): void {

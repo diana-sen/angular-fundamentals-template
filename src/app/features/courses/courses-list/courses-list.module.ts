@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+/*import { NgModule } from "@angular/core";
 import { CoursesListComponent } from "./courses-list.component";
 import { SharedModule } from "@app/shared/shared.module";
 import { CommonModule } from "@angular/common";
@@ -12,3 +12,5 @@ import { CommonModule } from "@angular/common";
 export class CoursesListModule {
     
 }
+
+*/

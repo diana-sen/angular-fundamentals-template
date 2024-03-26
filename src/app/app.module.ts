@@ -10,21 +10,20 @@ import { CoursesStoreService } from '@app/services/courses-store.service';
 import { CoursesService } from '@app/services/courses.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CourseModule } from './features/courses/courses.module';
-import { CoursesListModule } from './features/courses-list/courses-list.module';
 import { CourseInfoModule } from './features/course-info/course-info.module';
-import { CoursesListComponent } from './features/courses-list/courses-list.component';
-//import { CustomDatePipe } from './shared/pipes/custom-date.pipe';
+import { CoursesListComponent } from './features/courses/courses-list/courses-list.component';
+import { appRouting } from './app-routing.module';
 
 @NgModule({
   declarations: [AppComponent /*CustomDatePipe, CourseInfoComponent*/],
   imports: [
     BrowserModule,
+    appRouting,
     SharedModule,
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
     CourseModule,
-    CoursesListModule,
     CourseInfoModule
   ],
   providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService],

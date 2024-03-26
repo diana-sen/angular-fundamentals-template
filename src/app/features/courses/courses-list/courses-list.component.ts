@@ -18,15 +18,16 @@ export class CoursesListComponent implements OnInit {
   faPencil = faPencil;
 
   ngOnInit(): void {
-    console.log("courselist course" +this.courses[0].title);
+    console.log("courselist course" + this.courses[0].title);
   }
 
   handleShowCourse(event: any): void {
     this.showCourse.emit(event);
+    console.log('navigate to course');
   }
 
   handleClickOnEdit(){
-    this.deleteCourse.emit();
+    this.editCourse.emit();
     console.log("Click on edit");
   }
 
@@ -34,4 +35,5 @@ export class CoursesListComponent implements OnInit {
     this.deleteCourse.emit();
     console.log("Click on delete");
   }
+
 }
