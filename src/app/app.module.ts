@@ -13,11 +13,13 @@ import { CourseModule } from './features/courses/courses.module';
 import { CourseInfoModule } from './features/course-info/course-info.module';
 import { CoursesListComponent } from './features/courses/courses-list/courses-list.component';
 import { appRouting } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent /*CustomDatePipe, CourseInfoComponent*/],
   imports: [
     BrowserModule,
+    HttpClientModule,
     appRouting,
     SharedModule,
     FontAwesomeModule,

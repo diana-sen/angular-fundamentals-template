@@ -6,3 +6,15 @@ export interface CourseData {
 	duration: number;
 	authors: string[];
 }
+
+export interface User {
+	name?: string;
+	email: string;
+	password?: string;
+}
+
+export interface TokenResponse {
+	successful: boolean;
+	result: string;
+	user: User;
+}
