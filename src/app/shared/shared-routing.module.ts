@@ -6,7 +6,12 @@ const routes: Routes = [
     { path: 'login', component: LoginFormComponent },
     { path: 'registration', component: RegistrationFormComponent },
     { path: 'courses/add', component: CourseFormComponent },
-    { path: 'courses/edit/:id', component: CourseFormComponent}
+    { path: 'courses/edit/:id', component: CourseFormComponent},
+    {
+      path:'',
+      redirectTo:'courses',
+      pathMatch:'full'
+    }
   ];
 
 

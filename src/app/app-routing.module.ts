@@ -17,13 +17,6 @@ export const routes: Routes = [
         path: '', 
         loadChildren:() => import('./shared/shared.module').then(m => m.SharedModule) 
     },
-    /*{ 
-        //default
-        path: '', 
-        redirectTo: 'courses', 
-        pathMatch:'full'
-      
-    },*/
     {   //fallback
         path: '**', 
         redirectTo:'courses',
