@@ -11,7 +11,7 @@ export class AuthService {
     private readonly apiUrl = 'http://localhost:4000';
     private isAuthorized$$ = new BehaviorSubject<boolean>(false);
     public isAuthorized$ = new Observable<boolean>;
-    
+
     constructor(private sessionStorage: SessionStorageService, private http: HttpClient){}
 
     login(user: User) { // replace 'any' with the required interface
@@ -29,10 +29,17 @@ export class AuthService {
 
     logout() {
         // Add your code here
-    }
+        return this.http.delete(`${this.apiUrl}/logout`)
+        .pipe(map(() => {
+            this.sessionStorage.deleteToken();
+            this.isAuthorised = false;
+        }));
+    } 
+    
 
-    register(user: any) { // replace 'any' with the required interface
+    register(user: User) { // replace 'any' with the required interface
         // Add your code here
+        return this.http.post(`${this.apiUrl}/register`, user);
     }
 
     get isAuthorised() {

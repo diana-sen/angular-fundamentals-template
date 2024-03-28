@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HtmlTagDefinition } from '@angular/compiler';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { User } from '@app/app-interface';
+import { AuthService } from '@app/auth/services/auth.service';
 import { emailValidator } from '@app/shared/directives/email.directive';
 
 @Component({
@@ -9,6 +13,8 @@ import { emailValidator } from '@app/shared/directives/email.directive';
 })
 export class RegistrationFormComponent implements OnInit {
   registrationForm!: FormGroup;
+  constructor(private authService: AuthService, public router: Router){}
+
   // Use the names `name`, `email`, `password` for the form controls.
   ngOnInit(): void {
     this.registrationForm = new FormGroup({
@@ -24,14 +30,12 @@ export class RegistrationFormComponent implements OnInit {
     });
   }
 
-  onSubmit(registrationItem: any): any {
+  onSubmit(registrationItem: User): any {
+    this.authService.register(registrationItem).subscribe(()=>{});
     console.log("Registration Data: ");
     console.log(registrationItem);
     console.log("Go to login");
+    this.router.navigate(['/login']);
   }
-
-  public emitSubmitEvent(event: any): void{
-    //this.registrationForm..ngSubmit.emit();
-  }
-
+  
 }
