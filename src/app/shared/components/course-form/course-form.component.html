@@ -7,46 +7,88 @@
       <div class="form__control">
         <label for="title">Title</label>
         <!--Use the name `title` for the form control.-->
-        <input type="text" id="title" placeholder="Input text" formControlName="title" [ngClass]="!courseForm.controls['title'].valid && courseForm.controls['title'].touched ? 'invalid':  '' "/>
-        <span id="titleErrorMessage" class="text-danger" *ngIf="!courseForm.controls['title'].valid && courseForm.controls['title']?.touched" >Title is required.</span>
+        <input type="text" id="title" placeholder="Input text" formControlName="title"
+          [ngClass]="!courseForm.controls['title'].valid && courseForm.controls['title'].touched ? 'invalid':  '' " />
+        <span id="titleErrorMessage" class="text-danger"
+          *ngIf="!courseForm.controls['title'].valid && courseForm.controls['title']?.touched">Title is required.</span>
       </div>
       <div class="form__control">
         <label for="description">Description</label>
         <!--Use the name `description` for the form control.-->
-        <textarea
-          id="description"
-          name="description"
-          placeholder="Input text"
-          rows="4"
-          cols="5"
+        <textarea id="description" name="description" placeholder="Input text" rows="4" cols="5"
           formControlName="description"
-          [ngClass]="!courseForm.controls['description'].valid && courseForm.controls['description'].touched ? 'invalid':  '' "
-        ></textarea>
-        <span id="descriptionErrorMessage" class="text-danger" *ngIf="!courseForm.controls['description'].valid && courseForm.controls['description']?.touched">Description is required.</span>
+          [ngClass]="!courseForm.controls['description'].valid && courseForm.controls['description'].touched ? 'invalid':  '' ">
+        </textarea>
+        <span id="descriptionErrorMessage" class="text-danger"
+          *ngIf="!courseForm.controls['description'].valid && courseForm.controls['description']?.touched">Description 
+          is required.</span>
       </div>
       <h3>Duration</h3>
       <div class="form__control">
         <div class="course__flex">
           <!--Use the name `duration` for the form array.-->
-          <input type="number" id="duration" placeholder="Input duration"  formControlName="duration" [ngClass]="!courseForm.controls['duration'].valid && courseForm.controls['duration'].touched ? 'invalid':  '' "/>
+          <input type="number" id="duration" placeholder="Input duration" formControlName="duration"
+            [ngClass]="!courseForm.controls['duration'].valid && courseForm.controls['duration'].touched ? 'invalid':  '' " />
           <div class="course__duration">
             {{ courseForm.controls['duration'].value | duration}}
           </div>
         </div>
-        <span id="durationErrorMessage" class="text-danger" *ngIf="!courseForm.controls['duration'].valid && courseForm.controls['duration']?.touched">Duration is required.</span>
+        <span id="durationErrorMessage" class="text-danger"
+          *ngIf="!courseForm.controls['duration'].valid && courseForm.controls['duration']?.touched">Duration is
+          required.</span>
       </div>
       <div class="separator"></div>
       <h3>Authors</h3>
       <div class="form__control">
         <div class="course__flex">
           <!--Use the name `author` for the form control.-->
-          <input type="text" id="author" placeholder="Input Author Name" formControlName="author"/>
-          <app-button id="createAuthor" [buttonText]="createAuthorText"></app-button>
+          <label for="author">Author Name</label>
+          <input type="text" id="author" placeholder="Input Author Name" formControlName="author" />
+          <app-button id="createAuthor" [buttonText]="createAuthorText" (click)="createAuthor()"
+            [disabled]="!isAuthorValid()"></app-button>
         </div>
-        <span id="authorErrorMessage" *ngIf="!courseForm.controls['author'].valid">New author should contain only latin letters and numbers.</span>
-        <div class="course__authors">
+        <span id="authorErrorMessage" class="text-danger" *ngIf="!courseForm.controls['author'].valid">New author should
+          contain only latin letters and numbers.</span>
+        <div class="course__authors" style="display:flex; flex-direction:column;">
           <!--Use the name `authors` for the form array.-->
-          ::Authors::
+          <div>
+            Authors
+            <ng-container formArrayName="authors">
+              <ng-container *ngFor="let authorForm of authors.controls; let i = index">
+                <ul>
+                  <li>
+                    <div formGroupName="{{i}}">
+                      <div>
+                        <input type="text" formControlName="name" readonly />
+                        <app-button id="addAuthor" iconName="plus" (click)="addAuthorToCourse(i)"></app-button>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </ng-container>
+            </ng-container>
+          </div>
+          <hr />
+          <div class="separator"></div>
+
+          <div>
+            Course Authors
+            <ng-container formArrayName="courseAuthors" *ngIf="courseAuthors.length > 0">
+              <ng-container *ngFor="let authorForm1 of courseAuthors.controls; let i = index">
+                <ul>
+                  <li>
+                    <div formGroupName="{{i}}">
+                      <div>
+                        <input type="text" formControlName="name" readonly />
+                        <app-button id="removeAuthor" iconName="trash-alt"
+                          (click)="deleteAuthorFromCourse(i)"></app-button>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </ng-container>
+            </ng-container>
+          </div>
         </div>
       </div>
       <div class="separator"></div>

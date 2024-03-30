@@ -29,3 +29,11 @@
         color: white;
       }
 }
+
+.disabled {
+    background: #6e7070;
+    cursor: text;
+    &:hover {
+        background: #6e7070;
+    }
+}

@@ -7,13 +7,15 @@
         <div class="form__control">
           <label for="email">Email</label>
           <!--Use the name `email` for the form control.-->
-          <input name="email" type="text" id="email" placeholder="Input text" emailValidator required ngModel [ngClass]="!loginForm.controls['email']?.invalid ? 'invalid' : 'valid' " />
+          <input name="email" type="text" id="email" placeholder="Input text" emailValidator required ngModel 
+            [ngClass]="loginForm.controls['email'] && !loginForm.controls['email'].invalid ? 'invalid' : 'valid' " />
           <span id="emailErrorMessage" class="text-danger" *ngIf="loginForm.controls['email']?.invalid && loginForm.controls['email']?.touched">Email is required.</span>
         </div>
         <div class="form__control">
           <label for="password">Password</label>
           <!--Use the name `password` for the form control.-->
-          <input name="password" type="password" id="password" placeholder="Input text" required ngModel [ngClass]="!loginForm.controls['password']?.invalid ? 'invalid' : 'valid' " />
+          <input name="password" type="password" id="password" placeholder="Input text" required ngModel 
+            [ngClass]="loginForm.controls['password'] && !loginForm.controls['password'].invalid ? 'invalid' : 'valid' " />
           <span id="passwordErrorMessage" class="text-danger" *ngIf="loginForm.controls['password']?.invalid && loginForm.controls['password'].touched">Password is required.</span>
         </div>
       </div>

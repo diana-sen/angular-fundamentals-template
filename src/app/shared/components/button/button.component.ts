@@ -11,6 +11,7 @@ export class ButtonComponent {
     // Use the names for the inputs `buttonText` and `iconName`.
     @Input() buttonText = '';
     @Input() iconName: any;
+    @Input() disabled = false;
 
   constructor(library: FaIconLibrary) {
     library.addIconPacks(fas);
