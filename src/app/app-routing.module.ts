@@ -1,21 +1,26 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CoursesComponent } from './features/courses/courses.component';
-import { CourseInfoComponent } from './features/course-info/course-info.component';
+import { AuthorizedGuard } from './auth/guards/authorized.guard';
+import { NotAuthorizedGuard } from './auth/guards/not-authorized.guard';
 
 export const routes: Routes = [
     /* Add your code here */
-    { 
-        path: 'courses', 
-        loadChildren:() => import('./features/courses/courses.module').then(m => m.CourseModule)  
+    {   path: 'login', 
+        loadChildren:() => import('./features/login/login.module').then(m => m.LoginModule ),
+        canActivate:[NotAuthorizedGuard] 
+    },
+    {   path: 'registration', 
+        loadChildren:() => import('./features/registration/registration.module').then(m => m.RegistrationModule ),
+        canActivate:[NotAuthorizedGuard] 
     }, 
     { 
-        path: 'courses/:id', 
-        loadChildren:() => import('./features/course-info/course-info.module').then(m => m.CourseInfoModule) 
-    },
-    { 
-        path: '', 
-        loadChildren:() => import('./shared/shared.module').then(m => m.SharedModule) 
+        path: 'courses', 
+        loadChildren:() => import('./features/courses/courses.module').then(m => m.CourseModule),
+    },    
+    {
+        path:'',
+        redirectTo:'courses',
+        pathMatch:'full'
     },
     {   //fallback
         path: '**', 
@@ -23,4 +28,9 @@ export const routes: Routes = [
     },
 ];
 
-export const appRouting = RouterModule.forRoot(routes);
+@NgModule({
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule],
+})
+
+export class AppRoutingModule {}

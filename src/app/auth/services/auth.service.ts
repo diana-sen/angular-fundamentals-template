@@ -9,15 +9,19 @@ import { Observable, BehaviorSubject, map } from 'rxjs';
 })
 export class AuthService {
     private readonly apiUrl = 'http://localhost:4000';
+    private loginUrl = '/login';
+    private coursesUrl = '/courses';
     private isAuthorized$$ = new BehaviorSubject<boolean>(false);
     public isAuthorized$ = new Observable<boolean>;
 
-    constructor(private sessionStorage: SessionStorageService, private http: HttpClient){}
+    constructor(private sessionStorage: SessionStorageService, private http: HttpClient){
+        this.isAuthorized$ = this.isAuthorized$$.asObservable();
+    }
 
     login(user: User) { // replace 'any' with the required interface
         // Add your code here
         console.log('user is on auth service');
-        return this.http.post<TokenResponse>(`http://localhost:4000/login`, {...user} )
+        return this.http.post<TokenResponse>(`${this.apiUrl}${this.loginUrl}`, {...user} )
         .pipe(map(res => { 
             console.log(res);
             if(res.successful) {
@@ -35,11 +39,14 @@ export class AuthService {
             this.isAuthorised = false;
         }));
     } 
-    
 
     register(user: User) { // replace 'any' with the required interface
         // Add your code here
-        return this.http.post(`${this.apiUrl}/register`, user);
+        return this.http.post<TokenResponse>(`${this.apiUrl}/register`, user)
+        .pipe(map((res) => {
+            console.log("User registered");
+            res.successful;
+        }));
     }
 
     get isAuthorised() {
@@ -53,7 +60,12 @@ export class AuthService {
         this.isAuthorized$$.next(value);
     }
 
-    getLoginUrl() {
+    getLoginUrl():string {
         // Add your code here
+        return this.loginUrl;
+    }
+
+    getCoursesUrl():string {
+        return this.coursesUrl;
     }
 }

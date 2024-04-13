@@ -16,5 +16,5 @@ export interface User {
 export interface TokenResponse {
 	successful: boolean;
 	result: string;
-	user: User;
+	user?: User;
 }

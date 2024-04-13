@@ -31,11 +31,10 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onSubmit(registrationItem: User): any {
-    this.authService.register(registrationItem).subscribe(()=>{});
-    console.log("Registration Data: ");
-    console.log(registrationItem);
-    console.log("Go to login");
-    this.router.navigate(['/login']);
+    this.authService.register(registrationItem).subscribe(() => {
+      this.router.navigate(['/login'])});    
+      console.log("Registration Data: ");
+      console.log(registrationItem);
   }
   
 }

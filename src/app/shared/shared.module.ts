@@ -16,7 +16,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { DurationPipe } from './pipes/duration.pipe';
 import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { EmailValidatorDirective } from '@shared/directives/email.directive';
-import { SharedRoutingModule } from './shared-routing.module';
+import { NotAuthorizedGuard } from '@app/auth/guards/not-authorized.guard';
+import { AuthorizedGuard } from '@app/auth/guards/authorized.guard';
+import { RouterLink, RouterModule } from '@angular/router';
 
 const components = [
   HeaderComponent,
@@ -40,8 +42,10 @@ const components = [
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedRoutingModule
+    RouterLink,
+    RouterModule
   ],
-  exports: [components]
+  exports: [components],
+  providers: [AuthorizedGuard, NotAuthorizedGuard]
 })
 export class SharedModule { }
