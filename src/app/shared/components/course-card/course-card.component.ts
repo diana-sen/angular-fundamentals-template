@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CourseData } from '@app/app-interface';
 import { ButtonConstants } from '@app/app.constants';
-import { CoursesService } from '@app/services/courses.service';
+import { CoursesStoreService } from '@app/services/courses-store.service';
+import { Subscription, forkJoin } from 'rxjs';
 //import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -22,22 +23,35 @@ export class CourseCardComponent implements OnInit {
     authors: [] 
   };
 
+  private subscriptions: Subscription[] = [];
 
   public showText = ButtonConstants.BUTTON_SHOW_COURSE;
-  public authorName: string[] = [];
+  public authorsNames: string[] = [];
 
-  constructor(private coursesService: CoursesService){
+  constructor(private coursesStoreService: CoursesStoreService){
   }
 
   ngOnInit(): void {
-    console.log("course info: "+ this.course);
-    this.authorName = this.course.authors.map((authorId) => this.coursesService.getAuthorById(authorId)?? '' );
+    const authorObservables = this.course.authors.map(authorId => {
+      return this.coursesStoreService.getAuthorById(authorId);
+    });
+
+    const authorsSubscription = forkJoin(authorObservables).subscribe({
+      next: authors => { this.authorsNames = authors.map(author => author.name); },
+      error: () => { console.log("Error!!!"); this.authorsNames.push('') }
+    });
+
+    this.subscriptions.push(authorsSubscription);
   }
 
 
   public handleClickOnShow(event: any): void{
     return this.clickOnShow.emit(this.course.id);
 
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
 }

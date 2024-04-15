@@ -1,5 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CourseData } from '@app/app-interface';
+import { CoursesStoreService } from '@app/services/courses-store.service';
+
 import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -18,7 +20,7 @@ export class CoursesListComponent implements OnInit {
   faPencil = faPencil;
 
   ngOnInit(): void {
-    console.log("courselist course" + this.courses[0].title);
+    //console.log("courselist course" + this.courses[0].title);
   }
 
   handleShowCourse(event: any): void {
@@ -26,14 +28,12 @@ export class CoursesListComponent implements OnInit {
     console.log('navigate to course');
   }
 
-  handleClickOnEdit(){
-    this.editCourse.emit();
-    console.log("Click on edit");
+  handleClickOnEdit(event:any){
+    this.editCourse.emit(event);
   }
 
-  handleClickOnDelete(){
-    this.deleteCourse.emit();
-    console.log("Click on delete");
+  handleClickOnDelete(event:any){
+    this.deleteCourse.emit(event);
   }
 
 }

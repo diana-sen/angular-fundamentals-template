@@ -49,16 +49,16 @@
         </div>
         <span id="authorErrorMessage" class="text-danger" *ngIf="!courseForm.controls['author'].valid">New author should
           contain only latin letters and numbers.</span>
-        <div class="course__authors" style="display:flex; flex-direction:column;">
+        <div class="course__authors" style="display:flex; flex-direction:row;">
           <!--Use the name `authors` for the form array.-->
-          <div>
+          <div style="width: 100%;">
             Authors
             <ng-container formArrayName="authors">
               <ng-container *ngFor="let authorForm of authors.controls; let i = index">
-                <ul>
+                <ul style="list-style: none;">
                   <li>
                     <div formGroupName="{{i}}">
-                      <div>
+                      <div style="display: flex;">
                         <input type="text" formControlName="name" readonly />
                         <app-button id="addAuthor" iconName="plus" (click)="addAuthorToCourse(i)"></app-button>
                       </div>
@@ -68,17 +68,14 @@
               </ng-container>
             </ng-container>
           </div>
-          <hr />
-          <div class="separator"></div>
-
-          <div>
+          <div style="width: 100%;">
             Course Authors
             <ng-container formArrayName="courseAuthors" *ngIf="courseAuthors.length > 0">
               <ng-container *ngFor="let authorForm1 of courseAuthors.controls; let i = index">
-                <ul>
+                <ul style="list-style: none;">
                   <li>
                     <div formGroupName="{{i}}">
-                      <div>
+                      <div style="display: flex;">
                         <input type="text" formControlName="name" readonly />
                         <app-button id="removeAuthor" iconName="trash-alt"
                           (click)="deleteAuthorFromCourse(i)"></app-button>
@@ -93,8 +90,8 @@
       </div>
       <div class="separator"></div>
       <div class="form__action">
-        <app-button [buttonText]="cancelText"></app-button>
-        <app-button [buttonText]="createCourseText"></app-button>
+        <app-button [buttonText]="cancelText" [routerLink]="['/courses']"></app-button>
+        <app-button [buttonText]="buttonText"></app-button>
       </div>
     </div>
   </div>

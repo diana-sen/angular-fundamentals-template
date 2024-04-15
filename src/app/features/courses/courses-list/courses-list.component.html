@@ -1,6 +1,6 @@
-<div *ngFor="let course of courses;">
+<div *ngFor="let course of courses; let i = index">
     <app-course-card  [course]="course" [editable]="editable" (clickOnShow)="handleShowCourse($event)">
-        <app-button (click)="handleClickOnEdit()" [iconName]="faTrashCan"></app-button>
-        <app-button (click)="handleClickOnDelete()" [iconName]="faPencil"></app-button>
+        <app-button (click)="handleClickOnDelete(course.id)" [iconName]="faTrashCan"></app-button>
+        <app-button (click)="handleClickOnEdit(course.id)" [iconName]="faPencil"></app-button>
     </app-course-card>
 </div>
