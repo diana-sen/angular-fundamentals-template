@@ -9,7 +9,8 @@ import { CoursesStoreService } from '@app/services/courses-store.service';
 import { CoursesService } from '@app/services/courses.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +23,12 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService],
+  providers: [AuthorizedGuard, 
+              NotAuthorizedGuard, 
+              CoursesService, 
+              CoursesStoreService,
+              {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
+            ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
