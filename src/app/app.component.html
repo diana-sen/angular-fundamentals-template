@@ -1,11 +1,12 @@
 <app-header>
-  <div>Username</div>
-  <app-button [buttonText]="logoutText"></app-button>
+  <div>{{username$ | async}}</div>
+  <!--<app-button [buttonText]="getButtonText()"></app-button>-->
+  <app-button *ngIf="!(isAuthorised$ | async)" (click)="login()" [buttonText]="getButtonText()"></app-button>
+  <app-button *ngIf="(isAuthorised$ | async)" (click)="logout()" [buttonText]="getButtonText()"></app-button>
 </app-header>
+
 <div class="app-root">
-
   <router-outlet></router-outlet>
-
   <!-- Modal component -->
   <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->
 </div>

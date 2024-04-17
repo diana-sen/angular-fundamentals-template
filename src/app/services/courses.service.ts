@@ -166,7 +166,7 @@ export class CoursesService {
 
 //Interfaces
 
-interface Course {
+export interface Course {
     id?: string;
     title: string;
     description: string;
@@ -175,22 +175,22 @@ interface Course {
     authors: string[];
 }
 
-interface CourseResponse {
+export interface CourseResponse {
     successful: boolean;
     result: Course;
 }
 
-interface CoursesResponse {
+export interface CoursesResponse {
     successful: boolean;
     result: Course[];
 }
 
-interface AuthorResponse {
+export interface AuthorResponse {
     successful: boolean;
     result: Author;
 }
 
-interface AuthorsResponse {
+export interface AuthorsResponse {
     successful: boolean;
     result: Author[];
 }

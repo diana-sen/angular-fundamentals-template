@@ -17,7 +17,7 @@ export class CoursesComponent implements OnInit {
   faPencil = faPencil;
   
   showText:string = ButtonConstants.BUTTON_SHOW_COURSE;
-  courses: CourseData[] = [];
+ // courses: CourseData[] = [];
   courses$: Observable<CourseData[]>;
   selectedCourse = '';
 
@@ -27,7 +27,7 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit(): void {    
     this.coursesStoreService.getAll().subscribe();
-    console.log(this.courses);
+    //console.log(this.courses);
   }
 
   showCourse(event:any){

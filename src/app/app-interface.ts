@@ -13,6 +13,11 @@ export interface User {
 	password?: string;
 }
 
+export interface UserResponse {
+    successful: boolean;
+    result: User;
+}
+
 export interface TokenResponse {
 	successful: boolean;
 	result: string;

@@ -3,6 +3,7 @@ import { SessionStorageService } from './session-storage.service';
 import { TokenResponse, User } from '@app/app-interface';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, map } from 'rxjs';
+import { UserStoreService } from '@app/user/services/user-store.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,9 @@ export class AuthService {
     private isAuthorized$$ = new BehaviorSubject<boolean>(false);
     public isAuthorized$ = new Observable<boolean>;
 
-    constructor(private sessionStorage: SessionStorageService, private http: HttpClient){
+    constructor(private sessionStorage: SessionStorageService, private http: HttpClient,
+        private userStoreService: UserStoreService
+    ){
         this.isAuthorized$ = this.isAuthorized$$.asObservable();
     }
 
@@ -23,10 +26,11 @@ export class AuthService {
         console.log('user is on auth service');
         return this.http.post<TokenResponse>(`${this.apiUrl}${this.loginUrl}`, {...user} )
         .pipe(map(res => { 
-            console.log(res);
+            //console.log(res);
             if(res.successful) {
                 this.sessionStorage.setToken(res.result);
                 this.isAuthorised = true;
+                this.userStoreService.getUser();
             }
     }))
     }

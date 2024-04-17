@@ -11,6 +11,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
+import { UserService } from './user/services/user.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,12 +24,15 @@ import { TokenInterceptor } from './auth/interceptors/token.interceptor';
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
+    AuthModule,
+    UserModule,
     AppRoutingModule
   ],
   providers: [AuthorizedGuard, 
               NotAuthorizedGuard, 
               CoursesService, 
               CoursesStoreService,
+              UserService,
               {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
             ],
   bootstrap: [AppComponent],
