@@ -1,0 +1,16 @@
+.app-course {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &__search {
+        display: flex;
+        flex-direction: row;      
+    }
+
+    &__add_button {
+      display: flex;
+      flex-direction: row;      
+    }
+  }
+  

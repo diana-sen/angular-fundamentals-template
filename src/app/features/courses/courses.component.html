@@ -1,6 +1,17 @@
+<ng-container *ngIf="(courses$ | async)?.length; else emptyCourses">
+    <div class="app-course">
+        <app-search class="app-course__search"></app-search>
+        <app-button class="app-course__add_button" *ngIf="isAdmin$ | async" [routerLink]="['/add']" [buttonText]="addCourseText"></app-button>
+    </div>
+    
+    <app-courses-list [courses]="(courses$|async) || []" [editable]="!!(isAdmin$ | async)" (showCourse)="showCourse($event)" 
+        (editCourse)="editCourse($event)" (deleteCourse)="deleteCourse($event)">
+    </app-courses-list>
+</ng-container>
 
-<app-search></app-search>
-<app-courses-list [courses]="(courses$|async) || []" [editable]="true" (showCourse)="showCourse($event)" 
-    (editCourse)="editCourse($event)" (deleteCourse)="deleteCourse($event)"></app-courses-list>
+<ng-template #emptyCourses>
+    <app-info>
+        <app-button [buttonText]="addCourseText" *ngIf="isAdmin$ | async" [routerLink]="['/courses/add']"></app-button>
+    </app-info>
+</ng-template>
 
-<!--app-course-info *ngIf="selectedCourse" [courseId]="selectedCourse"></app-course-info-->

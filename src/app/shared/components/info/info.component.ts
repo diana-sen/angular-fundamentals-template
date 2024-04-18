@@ -11,7 +11,7 @@ export class InfoComponent {
 @Input() Title = 'Your List is Empty';
 @Input() Text = 'Please use ´Add New Course´ button to add your first course';
 
-buttonText:string = ButtonConstants.BUTTON_ADD_COURSE;
+//buttonText:string = ButtonConstants.BUTTON_ADD_COURSE;
 
 public addCourse():void {
   console.log("adding a course");

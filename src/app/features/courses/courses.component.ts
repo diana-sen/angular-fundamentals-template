@@ -6,6 +6,7 @@ import { CoursesStoreService } from '@app/services/courses-store.service';
 import { CoursesService } from '@app/services/courses.service';
 import { Observable, startWith } from 'rxjs';
 import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { UserStoreService } from '@app/user/services/user-store.service';
 
 @Component({
   selector: 'app-courses',
@@ -15,14 +16,19 @@ import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
 export class CoursesComponent implements OnInit {
   faTrashCan = faTrashCan;
   faPencil = faPencil;
-  
-  showText:string = ButtonConstants.BUTTON_SHOW_COURSE;
+  addCourseText: string = ButtonConstants.BUTTON_ADD_COURSE;
+  showText: string = ButtonConstants.BUTTON_SHOW_COURSE;
  // courses: CourseData[] = [];
   courses$: Observable<CourseData[]>;
+  isAdmin$: Observable<boolean>;
+  
   selectedCourse = '';
 
-  constructor(private coursesStoreService: CoursesStoreService, private router: Router){
+  constructor(private coursesStoreService: CoursesStoreService, private router: Router,
+    private userStoreService: UserStoreService
+  ){
     this.courses$ = this.coursesStoreService.courses$;
+    this.isAdmin$ = this.userStoreService.isAdmin$;
   }
 
   ngOnInit(): void {    
