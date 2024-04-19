@@ -66,7 +66,7 @@ export class CourseFormComponent implements OnInit {
           this.courseForm.patchValue({ description: courseData.description });
           this.courseForm.patchValue({ duration: courseData.duration });
           //Add authors
-          courseData.authors.forEach(author => {
+          courseData.authors?.forEach(author => {
             const authorIndex = this.authors.value.findIndex((item: Author) => item.id === author);
             if (authorIndex >= 0) {
               this.moveAuthor(this.authors, this.courseAuthors, authorIndex);

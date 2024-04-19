@@ -9,10 +9,10 @@ export const coursesFeatureKey = 'courses';
 export interface Course {
   id?: string | number; //test fix
   title: string;
-  description: string;
+  description?: string;
   creationDate?: string | Date;
-  duration: number;
-  authors: string[];
+  duration?: number;
+  authors?: string[];
 }
 
 export interface CoursesState {

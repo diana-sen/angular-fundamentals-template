@@ -38,7 +38,7 @@ export class CoursesStateFacade {
         this.store.dispatch(CoursesActions.requestCreateCourse({course: course}));
     } 
 
-    editCourse(id: string, course:Course) {
+    editCourse(course:Course, id: string) { //test fix
         this.store.dispatch(CoursesActions.requestEditCourse({id, course}))
     } 
 

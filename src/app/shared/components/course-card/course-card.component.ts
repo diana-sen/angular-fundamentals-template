@@ -32,18 +32,19 @@ export class CourseCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const authorObservables = this.course.authors.map(authorId => {
+    const authorObservables = this.course.authors?.map(authorId => {
       return this.coursesStoreService.getAuthorById(authorId);
     });
 
-    const authorsSubscription = forkJoin(authorObservables).subscribe({
-      next: authors => { this.authorsNames = authors.map(author => author.name); },
-      error: () => { console.log("Error!!!"); this.authorsNames.push('') }
-    });
-
-    this.subscriptions.push(authorsSubscription);
+    if (authorObservables) {
+      const authorsSubscription = forkJoin(authorObservables).subscribe({
+        next: authors => { this.authorsNames = authors.map(author => author.name); },
+        error: () => { console.log("Error!!!"); this.authorsNames.push('') }
+      });
+  
+      this.subscriptions.push(authorsSubscription);
+    } 
   }
-
 
   public handleClickOnShow(event: any): void{
     return this.clickOnShow.emit(this.course.id?.toString()); //test fix

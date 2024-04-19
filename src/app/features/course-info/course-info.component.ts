@@ -43,23 +43,28 @@ export class CourseInfoComponent implements OnInit {
     this.backButton = ButtonConstants.BUTTON_BACK;
     const itemSubscription = this.coursesStoreService.getCourse(this.courseId)
       .subscribe(course => {
-        this.course = course
-        this.fillInAuthors(course.authors);
+        this.course = course;
+        if (course.authors) {
+          this.fillInAuthors(course.authors);
+        }
       });
     this.subscriptions.push(itemSubscription);
   }
 
   private fillInAuthors(authorIds: string[]): void {
-    const authorObservables = this.course.authors.map(authorId => {
+    const authorObservables = this.course.authors?.map(authorId => {
       return this.coursesStoreService.getAuthorById(authorId);
     });
 
-    const authorsSubscription = forkJoin(authorObservables).subscribe({
-      next: authors => { this.authorsNames = authors.map(author => author.name); },
-      error: () => { console.log("Error!!!"); this.authorsNames.push('') }
-    });
-
-    this.subscriptions.push(authorsSubscription);
+    if(authorObservables){
+      const authorsSubscription = forkJoin(authorObservables).subscribe({
+        next: authors => { this.authorsNames = authors.map(author => author.name); },
+        error: () => { console.log("Error!!!"); this.authorsNames.push('') }
+      });
+  
+      this.subscriptions.push(authorsSubscription);
+    }
+    
   }
 
   ngOnDestroy(): void {
