@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder, FormGroup, FormArray, Validators, FormControl
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Author, CourseData } from '@app/app-interface';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Author } from '@app/app-interface';
+import { Course } from '@app/store/courses/courses.reducer';
 import { CoursesStoreService } from '@app/services/courses-store.service';
 import { Subscription, map, tap } from 'rxjs';
 
@@ -24,12 +25,13 @@ export class CourseFormComponent implements OnInit {
   addIcon = IconNames.ADD;
   deleteICon = IconNames.DELETE;
   courseForm!: FormGroup;
+  courseId = '';
 
   private subscriptions: Subscription[] = [];
 
   // Use the names `title`, `description`, `author`, 'authors' (for authors list), `duration` for the form controls.
   
-  constructor(public fb: FormBuilder, public library: FaIconLibrary, private activatedRoute: ActivatedRoute, private coursesStoreService: CoursesStoreService ) {
+  constructor(public fb: FormBuilder, public library: FaIconLibrary, private activatedRoute: ActivatedRoute, private coursesStoreService: CoursesStoreService, private router: Router) {
     library.addIconPacks(fas);
     this.courseForm = this.fb.group({
       title: ['', Validators.compose([Validators.required, Validators.minLength(2)])],
@@ -45,12 +47,11 @@ export class CourseFormComponent implements OnInit {
  
   ngOnInit() {
     this.populateAuthors();
-    let courseId = '';
-    const routeSubscription = this.activatedRoute.params.subscribe(params => courseId = params['id'])
+    const routeSubscription = this.activatedRoute.params.subscribe(params => this.courseId = params['id'])
     this.subscriptions.push(routeSubscription);
-    if (!!courseId) { // Edit
+    if (!!this.courseId) { // Edit
       //let courseData: CourseData;
-      this.populateCourse(courseId);
+      this.populateCourse(this.courseId);
       this.buttonText = ButtonConstants.BUTTON_UPDATE_COURSE;
     } else {
       this.buttonText = ButtonConstants.BUTTON_CREATE_COURSE;
@@ -107,12 +108,18 @@ export class CourseFormComponent implements OnInit {
   createAuthor(): void {
     if (this.isAuthorValid()) {
       console.log("Valid author");
-      const authorForm = this.fb.group({
-        id: 'authID',
-        name: this.courseForm.controls['author'].value,
+      this.coursesStoreService.createAuthor(this.courseForm.controls['author'].value).subscribe({
+        next: author => {
+          const authorForm = this.fb.group({
+            id: author.id,
+            name: author.name,
+          });
+          this.courseForm.patchValue({ author: "" });
+          this.authors.push(authorForm);
+        },
+        error: err => console.log("Error adding author")
       });
 
-      this.authors.push(authorForm);
       // TODO: Call API to add author
     }
   }
@@ -130,6 +137,36 @@ export class CourseFormComponent implements OnInit {
     const author = origin.at(index);
     origin.removeAt(index);
     destination.push(author);
+  }
+
+  
+  saveCourse() {
+    if (this.courseForm.valid && this.courseAuthors.length > 0) {
+      const authors = this.courseAuthors.controls.map(author => author.value.id);
+
+      let course: Course = {
+        title: this.courseForm.controls['title'].value,
+        description: this.courseForm.controls['description'].value,
+        duration: this.courseForm.controls['duration'].value,
+        authors: authors
+      }
+
+      if (!!this.courseId) { // Update course
+        console.log(course)
+        const saveSubscription = this.coursesStoreService.editCourse(this.courseId, course).subscribe({
+          next: res => { this.router.navigate(['/courses']); }
+        });
+        this.subscriptions.push(saveSubscription);
+      } else { // Create course
+        const saveSubscription = this.coursesStoreService.createCourse(course).subscribe({
+          next: res => { this.router.navigate(['/courses']); }
+        });
+        this.subscriptions.push(saveSubscription);
+      }
+
+    } else {
+      console.log("Invalid form data");
+    }
   }
 
   ngOnDestroy(): void {

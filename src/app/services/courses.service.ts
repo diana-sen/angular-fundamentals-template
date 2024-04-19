@@ -72,7 +72,7 @@ export class CoursesService {
             authors: course.authors
         }
 
-        return this.http.post<CourseResponse>(`${this.apiBaseUrl}${this.coursesPath}/"${id}"`, body).pipe(
+        return this.http.put<CourseResponse>(`${this.apiBaseUrl}${this.coursesPath}/${id}`, body).pipe(
             map(response => {
                 return {
                     id: response.result.id,
@@ -139,9 +139,9 @@ export class CoursesService {
         );
     }
 
-    createAuthor(name: string) {
+    createAuthor(name: string): Observable<Author> {
         // Add your code here
-        return this.http.post<CourseResponse>(`${this.apiBaseUrl}${this.authorsPath}/add`, { name }).pipe(
+        return this.http.post<AuthorResponse>(`${this.apiBaseUrl}${this.authorsPath}/add`, { name }).pipe(
             map(response => response.result));
     }
 

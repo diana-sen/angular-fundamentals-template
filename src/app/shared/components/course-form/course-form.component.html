@@ -91,7 +91,7 @@
       <div class="separator"></div>
       <div class="form__action">
         <app-button [buttonText]="cancelText" [routerLink]="['/courses']"></app-button>
-        <app-button [buttonText]="buttonText"></app-button>
+        <app-button [buttonText]="buttonText" (click)="saveCourse()"></app-button>
       </div>
     </div>
   </div>

@@ -18,13 +18,13 @@ export class CoursesStoreService {
     constructor(private courseService: CoursesService) {
 
     }
-    getAll(){
+    getAll() {
         console.log("Inside getAll store0");
         // Add your code here
         this.isLoading$$.next(true);
         return this.courseService.getAll().pipe(
             tap(courses => {
-                this.courses$$.next(courses)
+                this.courses$$.next(courses);
             }),
             tap(() => { this.isLoading$$.next(false) })
         );

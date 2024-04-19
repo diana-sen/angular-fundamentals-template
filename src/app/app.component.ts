@@ -33,13 +33,18 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userStoreService.getUser().subscribe();
-    
+    this.userStoreService.getUser().subscribe({
+      next: () => { this.authService.isAuthorised = true; },
+      error: () => this.authService.isAuthorised = false
+    }
+    );
   }
   logout() {
-    this.authService.logout();
-    this.router.navigate(['/courses']);
-    console.log("logout, go to courses");
+    this.authService.logout().subscribe(()=>{
+      this.authService.isAuthorised = false;
+      this.router.navigate(['/courses']);
+      console.log("logout, go to courses");
+    });
   }
 
   login() {
