@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CoursesService } from '@app/services/courses.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { catchError, debounceTime, map, mergeMap, of, tap } from 'rxjs';
 import * as courseActions from "./courses.actions"
 import { Course } from './courses.reducer';
 import { Router } from '@angular/router';
@@ -78,15 +78,28 @@ export class CoursesEffects {
     )
   );
 
-  redirectToTheCoursesPage$ = createEffect(() => 
-    this.actions$.pipe(
-      ofType(
-            courseActions.requestCreateCourseSuccess, 
-            courseActions.requestEditCourseSuccess, 
-            courseActions.requestSingleCourseFail),
-      tap(() => this.router.navigate(['/courses']))
-      ), 
-      { dispatch: false }
-    );
+    redirectToTheCoursesPage$ = createEffect(() => 
+      this.actions$.pipe(
+        ofType(
+              courseActions.requestCreateCourseSuccess, 
+              courseActions.requestEditCourseSuccess, 
+              courseActions.requestSingleCourseFail),
+        tap(() => this.router.navigate(['/courses']))
+        ), 
+        { dispatch: false }
+      );
 
+    filteredCourses$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(courseActions.requestFilteredCourses),
+        debounceTime(1000),
+        mergeMap((action) =>{
+          return this.coursesService.filterCourses(action.title).pipe(
+              map((courses) => courseActions.requestFilteredCoursesSuccess({courses})),
+              catchError((error)=> of(courseActions.requestFilteredCoursesFail({error})))
+          )
+        }
+      )
+    )
+  );
 }

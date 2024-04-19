@@ -8,7 +8,7 @@ export const coursesFeatureKey = 'courses';
 
 export interface Course {
   id?: string | number; //test fix
-  title: string;
+  title?: string; //test fix
   description?: string;
   creationDate?: string | Date;
   duration?: number;

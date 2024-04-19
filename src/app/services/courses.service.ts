@@ -109,7 +109,7 @@ export class CoursesService {
         return this.http.delete(`${this.apiBaseUrl}${this.coursesPath}/${id}`);
     }
 
-    filterCourses(value: string) {
+    filterCourses(value: string): Observable<Course[]> {
         const filterQuery = value ? `?title=${value}` : '';
 
         // Add your code here
