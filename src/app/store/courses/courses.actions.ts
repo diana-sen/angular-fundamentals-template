@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { CoursesConstants } from '@app/store/courses/courses.constants';
-import { Course } from '@app/services/courses.service';
+import { Course } from './courses.reducer';
+
 
 // Request all courses
 export const requestAllCourses = createAction(

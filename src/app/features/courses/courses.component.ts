@@ -7,6 +7,7 @@ import { Observable, startWith } from 'rxjs';
 import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { UserStoreService } from '@app/user/services/user-store.service';
 import { Course } from '@app/store/courses/courses.reducer';
+import { CoursesStateFacade } from '@app/store/courses/courses.facade';
 
 @Component({
   selector: 'app-courses',
@@ -19,21 +20,23 @@ export class CoursesComponent implements OnInit {
   addCourseText: string = ButtonConstants.BUTTON_ADD_COURSE;
   showText: string = ButtonConstants.BUTTON_SHOW_COURSE;
  // courses: CourseData[] = [];
-  courses$: Observable<Course[]>;
+  courses$: Observable<Course[]> = this.coursesFacade.allCourses$;
   isAdmin$: Observable<boolean>;
   
   selectedCourse = '';
 
-  constructor(private coursesStoreService: CoursesStoreService, private router: Router,
+  constructor(private coursesFacade: CoursesStateFacade , private coursesStoreService: CoursesStoreService, private router: Router,
     private userStoreService: UserStoreService
   ){
-    this.courses$ = this.coursesStoreService.courses$;
+   // this.courses$ = this.coursesStoreService.courses$;
     this.isAdmin$ = this.userStoreService.isAdmin$;
   }
 
   ngOnInit(): void {    
-    this.coursesStoreService.getAll().subscribe();
-    //console.log(this.courses);
+    this.coursesFacade.getAllCourses();
+    
+    //this.coursesStoreService.getAll().subscribe();
+  
   }
 
   showCourse(event:any){

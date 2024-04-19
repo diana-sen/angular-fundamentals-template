@@ -10,14 +10,14 @@ export interface Course {
   id?: string;
   title: string;
   description: string;
-  creationDate?: string;
+  creationDate?: string | Date;
   duration: number;
   authors: string[];
 }
 
 export interface CoursesState {
     // Add your code here
-    allCourses: Course [] | null;
+    allCourses: Course [];
     course: Course | null;
     isAllCoursesLoading: boolean;
     isSingleCourseLoading: boolean;
