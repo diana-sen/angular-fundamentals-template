@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { CoursesService } from './courses.service';
-import { CourseData } from '@app/app-interface';
+import { Course } from '@app/store/courses/courses.reducer';
 
 
 @Injectable({
@@ -12,7 +12,7 @@ export class CoursesStoreService {
     private isLoading$$ = new BehaviorSubject<boolean>(false);
     public isLoading$ = this.isLoading$$.asObservable();
 
-    private courses$$ = new BehaviorSubject<CourseData[]>([]);
+    private courses$$ = new BehaviorSubject<Course[]>([]);
     public courses$ = this.courses$$.asObservable();
 
     constructor(private courseService: CoursesService) {
@@ -31,7 +31,7 @@ export class CoursesStoreService {
 
     }
 
-    createCourse(course: CourseData) { // replace 'any' with the required interface
+    createCourse(course: Course) { // replace 'any' with the required interface
         // Add your code here
         this.isLoading$$.next(true);
         return this.courseService.createCourse(course).pipe(
@@ -43,12 +43,12 @@ export class CoursesStoreService {
         );
     }
 
-    getCourse(id: string): Observable<CourseData> {
+    getCourse(id: string): Observable<Course> {
         // Add your code here
         return this.courseService.getCourse(id);
     }
 
-    editCourse(id: string, course: CourseData) {// replace 'any' with the required interface
+    editCourse(id: string, course: Course) {// replace 'any' with the required interface
         // Add your code here
         this.isLoading$$.next(true);
         return this.courseService.editCourse(id, course).pipe(

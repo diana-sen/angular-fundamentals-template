@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { CourseData } from '@app/app-interface';
 import { CoursesStoreService } from '@app/services/courses-store.service';
+import { Course } from '@app/store/courses/courses.reducer';
 
 import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,7 +10,7 @@ import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./courses-list.component.scss'],
 })
 export class CoursesListComponent implements OnInit {
-  @Input() courses: CourseData[]=[];
+  @Input() courses: Course[]=[];
   @Input() editable: boolean = false;
   @Output() showCourse = new EventEmitter<void>();
   @Output() editCourse = new EventEmitter<void>();

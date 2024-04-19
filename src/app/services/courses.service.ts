@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Author, CourseData } from '@app/app-interface';
+import { Author } from '@app/app-interface';
+import { Course } from '@app/store/courses/courses.reducer';
 import { Observable, map } from 'rxjs';
 
 @Injectable({
@@ -14,7 +15,7 @@ export class CoursesService {
     constructor(private http: HttpClient) {
     }
 
-    getAll(): Observable<CourseData[]> {
+    getAll(): Observable<Course[]> {
         // Add your code here
         console.log("Get all courses - courses service")
         return this.http.get<CoursesResponse>(`${this.apiBaseUrl}${this.coursesPath}/all`).pipe(
@@ -35,7 +36,7 @@ export class CoursesService {
         );
     }
 
-    createCourse(course: CourseData): Observable<CourseData> {
+    createCourse(course: Course): Observable<Course> {
         // Add your code here
 
         const body: Course = {
@@ -62,7 +63,7 @@ export class CoursesService {
         );
     }
 
-    editCourse(id: string, course: CourseData): Observable<CourseData> {
+    editCourse(id: string, course: Course): Observable<Course> {
         // Add your code here
         const body: Course = {
             title: course.title,
@@ -86,7 +87,7 @@ export class CoursesService {
     }
 
 
-    getCourse(id: string): Observable<CourseData> {
+    getCourse(id: string): Observable<Course> {
         // Add your code here
         //const course = mockedCoursesList.find((course) => course.id === id);
         return this.http.get<CourseResponse>(`${this.apiBaseUrl}${this.coursesPath}/${id}`).pipe(
@@ -153,8 +154,8 @@ export class CoursesService {
         );
     }
 
-    private convertDate(dateStr: string | undefined): Date {
-        if (dateStr) {
+    private convertDate(dateStr: string | Date | undefined ): Date {
+        if (typeof(dateStr) === "string") {
             const dateSegments = dateStr.split('/');
             if (dateSegments?.length === 3) {
                 return new Date(Number(dateSegments[2]), Number(dateSegments[1]) - 1, Number(dateSegments[0]));
@@ -166,14 +167,14 @@ export class CoursesService {
 
 //Interfaces
 
-export interface Course {
+/*export interface Course {
     id?: string;
     title: string;
     description: string;
     creationDate?: string;
     duration: number;
     authors: string[];
-}
+}*/
 
 export interface CourseResponse {
     successful: boolean;

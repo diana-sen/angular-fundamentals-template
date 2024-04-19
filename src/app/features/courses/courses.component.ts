@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CourseData } from '@app/app-interface';
 import { ButtonConstants } from '@app/app.constants';
 import { CoursesStoreService } from '@app/services/courses-store.service';
 import { CoursesService } from '@app/services/courses.service';
 import { Observable, startWith } from 'rxjs';
 import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { UserStoreService } from '@app/user/services/user-store.service';
+import { Course } from '@app/store/courses/courses.reducer';
 
 @Component({
   selector: 'app-courses',
@@ -19,7 +19,7 @@ export class CoursesComponent implements OnInit {
   addCourseText: string = ButtonConstants.BUTTON_ADD_COURSE;
   showText: string = ButtonConstants.BUTTON_SHOW_COURSE;
  // courses: CourseData[] = [];
-  courses$: Observable<CourseData[]>;
+  courses$: Observable<Course[]>;
   isAdmin$: Observable<boolean>;
   
   selectedCourse = '';

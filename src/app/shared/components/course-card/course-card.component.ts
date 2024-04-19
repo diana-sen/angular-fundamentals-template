@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CourseData } from '@app/app-interface';
 import { ButtonConstants } from '@app/app.constants';
 import { CoursesStoreService } from '@app/services/courses-store.service';
+import { Course } from '@app/store/courses/courses.reducer';
 import { Subscription, forkJoin } from 'rxjs';
 //import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
 
@@ -14,7 +14,7 @@ import { Subscription, forkJoin } from 'rxjs';
 export class CourseCardComponent implements OnInit {
   @Input() editable = false;
   @Output() clickOnShow = new EventEmitter<string>();
-  @Input() course: CourseData = {
+  @Input() course: Course = {
     id: '', 
     title: '', 
     description: '', 

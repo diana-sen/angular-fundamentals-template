@@ -1,9 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CourseData } from "@app/app-interface";
 import { ButtonConstants } from '@app/app.constants';
 import { CoursesStoreService } from '@app/services/courses-store.service';
 import { CoursesService } from '@app/services/courses.service';
+import { Course } from '@app/store/courses/courses.reducer';
 import { Subscription, forkJoin } from 'rxjs';
 
 @Component({
@@ -13,7 +13,7 @@ import { Subscription, forkJoin } from 'rxjs';
 })
 export class CourseInfoComponent implements OnInit {
   // Use the names for the input `course`.
-  course: CourseData = { 
+  course: Course = { 
     id: '', 
     title: '', 
     description: '', 
@@ -34,19 +34,6 @@ export class CourseInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  /*  console.log("course info id" + this.courseId);
-    this.backButton = ButtonConstants.BUTTON_BACK;
-    const item = this.coursesService.getCourse(this.courseId);
-    if (item){
-      this.course.id = item.id;
-      this.course.title = item.title;
-      this.course.description = item.description;
-      this.course.creationDate = new Date(item.creationDate);
-      this.course.duration = item.duration;
-      this.course.authors = item.authors.map((authorId) => this.coursesService.getAuthorById(authorId) ?? '');
-    }
-  }
-  */
 
     if (!this.courseId) {
       const routeSubscription = this.activatedRoute.params.subscribe(params => this.courseId = params['id'])
