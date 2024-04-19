@@ -27,6 +27,11 @@ export const getCourse = createSelector(
     (state) => state.course,
 );
 
+export const getCourses = createSelector(
+    selectCoursesState,
+    (state) => state.allCourses,
+);
+
 export const getErrorMessage = createSelector(
     selectCoursesState,
     (state) => state.errorMessage,

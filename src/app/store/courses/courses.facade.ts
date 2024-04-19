@@ -18,12 +18,13 @@ export class CoursesStateFacade {
 
     public allCourses$: Observable<Course[] | null> = this.store.pipe(select(CoursesSelectors.getAllCourses));
     public course$: Observable<Course | null> = this.store.pipe(select(CoursesSelectors.getCourse));
+    
+    public isAllCoursesLoading$: Observable<boolean> = this.store.pipe(select(CoursesSelectors.isAllCoursesLoadingSelector));
+    public isSingleCourseLoading$: Observable<boolean> = this.store.pipe(select(CoursesSelectors.isSingleCourseLoadingSelector));
+    public isSearchingState$: Observable<boolean> = this.store.pipe(select(CoursesSelectors.isSearchingStateSelector));
+    public errorMessage$: Observable<string | Error | null> = this.store.pipe(select(CoursesSelectors.getErrorMessage));
 
-    // isAllCoursesLoading$
-    // isSingleCourseLoading$
-    // isSearchingState$
-    // courses$
-    // errorMessage$
+    public courses$: Observable<Course[] | null> = this.store.pipe(select(CoursesSelectors.getCourses));
 
     getAllCourses(){
         this.store.dispatch(CoursesActions.requestAllCourses());
@@ -33,5 +34,19 @@ export class CoursesStateFacade {
         this.store.dispatch(CoursesActions.requestSingleCourse({id}));
     }
 
+    createCourse(course:Course) {
+        this.store.dispatch(CoursesActions.requestCreateCourse({course: course}));
+    } 
 
+    editCourse(id: string, course:Course) {
+        this.store.dispatch(CoursesActions.requestEditCourse({id, course}))
+    } 
+
+    getFilteredCourses(searchValue: string) {
+        this.store.dispatch(CoursesActions.requestFilteredCourses({title: searchValue}));
+    }
+
+    deleteCourse(id: string) {
+        this.store.dispatch(CoursesActions.requestDeleteCourse({id}));
+    }
 }
