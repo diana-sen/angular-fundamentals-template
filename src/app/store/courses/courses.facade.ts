@@ -16,16 +16,22 @@ export class CoursesStateFacade {
 
     //public observable properties
 
+    public allCourses$: Observable<Course[] | null> = this.store.pipe(select(CoursesSelectors.getAllCourses));
+    public course$: Observable<Course | null> = this.store.pipe(select(CoursesSelectors.getCourse));
+
     // isAllCoursesLoading$
     // isSingleCourseLoading$
     // isSearchingState$
     // courses$
-    // course$
     // errorMessage$
-
-    public allCourses$: Observable<Course[]> = this.store.pipe(select(CoursesSelectors.getAllCourses));
 
     getAllCourses(){
         this.store.dispatch(CoursesActions.requestAllCourses());
     }
+
+    getSingleCourse(id: string) {
+        this.store.dispatch(CoursesActions.requestSingleCourse({id}));
+    }
+
+
 }

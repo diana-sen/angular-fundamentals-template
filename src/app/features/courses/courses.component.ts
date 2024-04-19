@@ -20,7 +20,7 @@ export class CoursesComponent implements OnInit {
   addCourseText: string = ButtonConstants.BUTTON_ADD_COURSE;
   showText: string = ButtonConstants.BUTTON_SHOW_COURSE;
  // courses: CourseData[] = [];
-  courses$: Observable<Course[]> = this.coursesFacade.allCourses$;
+  courses$: Observable<Course[] | null> = this.coursesFacade.allCourses$;
   isAdmin$: Observable<boolean>;
   
   selectedCourse = '';

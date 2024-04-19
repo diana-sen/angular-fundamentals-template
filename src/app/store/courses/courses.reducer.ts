@@ -7,7 +7,7 @@ import { Author } from '@app/app-interface';
 export const coursesFeatureKey = 'courses';
 
 export interface Course {
-  id?: string;
+  id?: string | number; //test
   title: string;
   description: string;
   creationDate?: string | Date;
@@ -17,19 +17,19 @@ export interface Course {
 
 export interface CoursesState {
     // Add your code here
-    allCourses: Course [];
+    allCourses: Course [] | null;
     course: Course | null;
     isAllCoursesLoading: boolean;
     isSingleCourseLoading: boolean;
     isSearchState: boolean;
     errorMessage: string | null | Error
-    authors: Author[];
+    //authors: Author[];
 }
 
 export const initialState: CoursesState = {
     // Add your code 
     allCourses: [],
-    authors: [],
+    //authors: [],
     course: null, //to check
     isAllCoursesLoading: false,
     isSingleCourseLoading: false,

@@ -46,7 +46,7 @@ export class CourseCardComponent implements OnInit {
 
 
   public handleClickOnShow(event: any): void{
-    return this.clickOnShow.emit(this.course.id);
+    return this.clickOnShow.emit(this.course.id?.toString()); //test fix
 
   }
 

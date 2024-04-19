@@ -22,8 +22,22 @@ export class CoursesEffects {
                 catchError((error)=> of(courseActions.requestAllCoursesFail({error})))
             )
           }
-
         )
       )
     );
+
+    getSpecificCourse$ = createEffect(() =>
+        this.actions$.pipe(
+          ofType(courseActions.requestSingleCourse),
+          mergeMap((action) =>{
+            return this.coursesService.getCourse(action.id).pipe(
+                map((course) => courseActions.requestSingleCourseSuccess ({course: course})),
+                catchError((error)=> of(courseActions.requestSingleCourseFail({error})))
+            )
+          }
+        )
+      )
+    );
+
+
 }
