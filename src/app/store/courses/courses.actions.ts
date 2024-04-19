@@ -15,7 +15,7 @@ export const requestAllCoursesSuccess = createAction(
   
 export const requestAllCoursesFail = createAction(
   CoursesConstants.REQUEST_ALL_COURSES_FAIL,
-  props<{ error: string }>()
+  props<{ error: string }>() //test fix
 );
 
 
